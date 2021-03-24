@@ -18,14 +18,10 @@ namespace AddressBook.Controllers
         {
             _context = context;
         }
-
-        // GET: Organizations
         public async Task<IActionResult> Index()
         {
             return View(await _context.Organization.ToListAsync());
         }
-
-        // GET: Organizations/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,16 +38,13 @@ namespace AddressBook.Controllers
             organization.People = _context.Person.Select(p => p).Where(x => x.OrganizationId == organization.Id).ToList();
             return View(organization);
         }
-
-        // GET: Organizations/Create
+        
         public IActionResult Create()
         {
             return View();
         }
+        
 
-        // POST: Organizations/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Address,PhoneNumber")] Organization organization)
@@ -65,8 +58,7 @@ namespace AddressBook.Controllers
 
             return View(organization);
         }
-
-        // GET: Organizations/Edit/5
+        
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,10 +74,8 @@ namespace AddressBook.Controllers
 
             return View(organization);
         }
+        
 
-        // POST: Organizations/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Address,PhoneNumber")] Organization organization)
@@ -119,8 +109,8 @@ namespace AddressBook.Controllers
 
             return View(organization);
         }
+        
 
-        // GET: Organizations/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,8 +127,7 @@ namespace AddressBook.Controllers
 
             return View(organization);
         }
-
-        // POST: Organizations/Delete/5
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
