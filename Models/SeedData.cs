@@ -16,10 +16,9 @@ namespace AddressBook.Models
                 serviceProvider.GetRequiredService<
                     DbContextOptions<AddressBookContext>>()))
             {
-                // Look for any movies.
                 if (context.Organization.Any())
                 {
-                    return;   // DB has been seeded
+                    return;
                 }
 
                 context.Organization.AddRange(
