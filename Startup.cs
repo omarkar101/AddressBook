@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AddressBook.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace AddressBook
 {
@@ -24,6 +26,8 @@ namespace AddressBook
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<AddressBookContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("AddressBookContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +54,7 @@ namespace AddressBook
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Base}/{action=Index}/{name?}");
             });
         }
     }
