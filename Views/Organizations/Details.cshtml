@@ -16,10 +16,10 @@
             @Html.DisplayNameFor(model => model.Address)
             <br />
             @Html.DisplayNameFor(model => model.PhoneNumber)
-            <br/>
+            <br />
             @Html.DisplayNameFor(model => model.People)
-            <br/>
-            <a asp-action="CreatePerson" asp-route-Orgid="@Model.Id">Create Person</a>
+            <br />
+            <a asp-controller="People" asp-action="Create" asp-route-OrgId="@Model.Id"><input id="AddNewPerson" type="button" value="New Person" class="btn btn-primary"/></a>
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Name)
@@ -55,8 +55,8 @@
                             @Html.DisplayFor(modelItem => item.Address)
                         </td>
                         <td>
-                            <a asp-action="EditPerson" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action="DeletePerson" asp-route-id="@item.Id">Delete</a>
+                            <a asp-controller="People" asp-action="Edit" asp-route-id="@item.Id" asp-route-OrgId="@Model.Id">Edit</a> |
+                            <a asp-controller="People" asp-action="Delete" asp-route-id="@item.Id" asp-route-OrgId="@Model.Id">Delete</a>
                         </td>
                     </tr>
                 }

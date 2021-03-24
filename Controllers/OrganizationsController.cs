@@ -114,7 +114,7 @@ namespace AddressBook.Controllers
                     }
                 }
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Organizations");
             }
 
             return View(organization);
@@ -154,109 +154,5 @@ namespace AddressBook.Controllers
             return _context.Organization.Any(e => e.Id == id);
         }
 
-
-        public IActionResult CreatePerson(int? Orgid)
-        {
-            ViewData["OrganizationId"] = Orgid;
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreatePerson(int Orgid, [Bind("Id,Name,Address,PhoneNumber")] Person person)
-        {
-            person.OrganizationId = Orgid;
-            if (ModelState.IsValid)
-            {
-                _context.Add(person);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(person);
-        }
-
-
-        public async Task<IActionResult> EditPerson(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var person = await _context.Person.FindAsync(id);
-            if (person == null)
-            {
-                return NotFound();
-            }
-
-            return View(person);
-        }
-
-        // POST: Organizations/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPerson(int id, [Bind("Id,Name,Address,PhoneNumber")] Person person)
-        {
-            person.OrganizationId = 1;
-            if (id != person .Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(person);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!OrganizationExists(person.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-
-                return RedirectToAction("Index");
-            }
-            
-            return View(person);
-        }
-
-
-        public async Task<IActionResult> DeletePerson(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var person = await _context.Person
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (person == null)
-            {
-                return NotFound();
-            }
-
-            return View(person);
-        }
-        
-
-        [HttpPost, ActionName("DeletePerson")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmedPerson(int id)
-        {
-            var person = await _context.Person.FindAsync(id);
-            _context.Person.Remove(person);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
     }
 }

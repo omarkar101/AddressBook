@@ -2,14 +2,16 @@
 using AddressBook.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AddressBook.Migrations
 {
     [DbContext(typeof(AddressBookContext))]
-    partial class AddressBookContextModelSnapshot : ModelSnapshot
+    [Migration("20210324105316_PhoneNumberConstraint")]
+    partial class PhoneNumberConstraint
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,7 +54,6 @@ namespace AddressBook.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
